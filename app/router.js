@@ -7,6 +7,12 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
+  this.route('about');
+  this.route('home');
+  this.route('contact', function() {
+    this.route('phone');
+    this.route('email');
+  });
 });
 
 export default Router;
