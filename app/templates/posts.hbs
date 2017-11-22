@@ -1,0 +1,24 @@
+<br>
+<h2> Blog Posts </h2>
+{{#each model as |onePost|}}
+
+  <br>
+  <div class="container-fluid">
+    <div class="row align-items-center" style="padding-left: 60px; margin-right: 150px;">
+      <div class="col-4" style="float: left;">
+        <li>{{onePost.title}} </li>
+      </div>
+      <div class="col-4" style="float: right;">
+        {{edit-post post=onePost}}
+      </div>
+      <div class="col-4" style="float: right; margin-right: 5px;">
+        {{delete-post post=onePost}}
+      </div>
+    </div>
+  </div>
+
+<br><br>
+{{/each}}
+<div class="container" style="margin-left: 60px;">
+{{add-new-post}}
+</div>

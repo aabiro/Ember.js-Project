@@ -1,0 +1,11 @@
+.ui {
+  max-height: 400px;
+}
+
+.ember-application {
+  margin-bottom: 0px;
+}
+
+.ember-view {
+  margin-bottom: 0px;
+}
