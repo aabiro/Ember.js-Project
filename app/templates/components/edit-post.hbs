@@ -2,7 +2,7 @@
 <div class="right ui button" style="background-color: lightgreen;"{{action 'openEditModal' post}}>
     <span class="glyphicon glyphicon-pencil"></span>
 </div>
-{{#ui-modal name="editPost" class="editPost" }}
+{{#ui-modal name=modalName class=modalName }}
   <div class="header">
     Edit Post "Convention-over-configuration is a powerful feature in Ember"
   </div>
@@ -20,10 +20,10 @@
   </div>
   <br>
   <div class="actions">
-    <div class="ui black deny button" {{action 'update' post}}>
+    <div class="ui black deny button">
       Cancel
     </div>
-    <div class="ui positive right labeled icon button" {{action 'update' post}}>
+    <div class="ui positive right labeled icon button">
       Update
       <i class="checkmark icon"></i>
     </div>

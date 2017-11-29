@@ -3,79 +3,51 @@ import Ember from 'ember';
 
 export default Component.extend({
   DS: Ember.inject.service('store'),
+  modalName: Ember.computed(function(){
+    return "editPost" + this.get('ID');
+  }),
 
   actions: {
     openEditModal(thisPost) {
-      //var blogPost = this.get('DS').findRecord('post', 1);
-      this.set('title', thisPost.title);
-      this.set('body', thisPost.body);
-      Ember.$('.ui.editPost.modal').modal({
+      console.log(this.get('ID'));
+
+      var post = this.get('DS').findRecord('post', this.get('ID'));
+
+      const title = thisPost.get('title');
+      const body = thisPost.get('body');
+
+      this.set('title', post.get('title'));
+      this.set('body', post.get('body'));
+
+      Ember.$('.ui.' + this.get('modalName') + '.modal').modal({
         closable: false,
         detachable: false,
 
         onDeny: () => {
+        console.log(thisPost.get('changedAttributes'));
+          thisPost.rollbackAttributes();
+          //post.save();
+          thisPost.save();
           return true;
         },
 
 
 
         onApprove: () => {
-          console.log(thisPost.get('title'));
 
-          //var post = thisPost;
-          // var thisPost = this.get('DS').findRecord('post', 1).then(function(post) {
-
-            //   console.log(get('title'));
-         //console.log(post.get('body'));
-  // ...after the record has loaded
-          post.set('title', thisPost.get('title'));
-          post.set('body', thisPost.get('body'));
-
-          post.save().then(()=> {
-             return true;
+          var post = this.get('DS').findRecord('post', this.get('ID')).then(function(post) {
+          post.set('title', this.get('title'));
+          post.set('body', this.get('body'));
+          //post.set('hasDirtyAttributes', false);
+          post.save();
 
           console.log(post.changedAttributes());
+          return true;
 
-
- });
-  // });
- //          // var newPost = this.get('DS').queryRecord('post', { title: thisPost.title }).then(function(post) {
- //          //   // post.get('title');
- //          //   console.log(post.get('title'));
- //          //   console.log(post.get('body'));
- //          //
- //          //     post.set('title', this.get('title'));
- //          //     post.set('body', this.get('body'));
- //
- //              //post.save();
- //
- //            // post.set('title', 'A new post');
- //            //  });
- //            // newPost.save().then(()=> {
- //            //   return true;
- //            // });
- //          //  var newPost = this.get('DS').findRecord(thisPost).then(function (post) {
- //          //   post.set('title', this.get('title'));
- //          //   post.set('body', this.get('body'));
- //          // });
- //          //
- //          //
- //          //
- //          // newPost.save().then(()=> {
- //          //   return true;
- //          // });
- //
- //
+          });
         }
       })
         .modal('show');
     }
-    // ,
-    // update(post){
-    //   post.set('title', thisPost.get('title'));
-    //   post.set('body', thisPost.get('body'));
-    //
-    //   post.save()
-    // }
   }
 });
